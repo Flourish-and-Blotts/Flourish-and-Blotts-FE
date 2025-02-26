@@ -63,5 +63,5 @@ const fetcher = (url: string) => apiClient.get(url).then(res => res.data)
 export const useDataSWR = (url: string, payload: Record<string, any>) => {
     const queryParams = new URLSearchParams(payload).toString();
     const paginatedUrl = `${url}?${queryParams}`;
-    return useSWR(paginatedUrl, fetcher)
+    return useSWR(paginatedUrl, fetcher);
 }

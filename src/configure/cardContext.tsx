@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {Book}from "../components/BookCards";
 
-interface SavedBook extends Book{
+export interface SavedBook extends Book{
   quantity: number  
 }
 

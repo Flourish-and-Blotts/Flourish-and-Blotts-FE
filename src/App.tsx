@@ -1,26 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
-import HomePage from './pages/Home'
-import NotFoundPage from './pages/NotFoundPage'
-import { CartProvider } from './configure/cardContext'
-import ProductDetail from './pages/BookDetail'
+import UserPage from './pages/UserPage'
+import AdminPage from './pages/AdminPage'
 import { ROUTER_PATH } from './configure/routerPath'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Login from './pages/Login'
 
 const App = () => {
   return (
-    <CartProvider>
-      <div className='w-full items-center justify-center bg-[#FFFFF0] dark:bg-black text-[#333333] dark:text-white' >
-        <Header />
-        <Routes>
-          <Route path={ROUTER_PATH.HOME} element={<HomePage />} />
-          <Route path={ROUTER_PATH.BOOK_DETAIL} element={<ProductDetail />} />
-          {/* <Route path="/about" element={<AboutPage />} /> */}
-          <Route path="*" element={<NotFoundPage />} />  {/* 404 Page */}
-        </Routes>
-        <Footer />
-      </div>
-    </CartProvider>
+    <Routes>
+      <Route path={ROUTER_PATH.USER} element={<UserPage />} />
+      <Route path={ROUTER_PATH.ADMIN} element={<AdminPage />} />  {/* 404 Page */}
+      <Route path={ROUTER_PATH.LOGIN} element={<Login />} />  {/* 404 Page */}
+    </Routes>
   )
 }
 

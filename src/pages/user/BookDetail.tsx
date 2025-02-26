@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { ShoppingCartIcon, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
-import { Book } from "../components/BookCards";
-import { getAPI } from "../service/apiService";
+import { ShoppingCartIcon, ArrowLeft } from "lucide-react";
+import { Book } from "../../components/BookCards";
+import { getAPI } from "../../service/apiService";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useCart } from "../configure/cardContext";
+import { useCart } from "../../configure/cardContext";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
+import 'swiper/swiper-bundle.css';
 
 const ProductDetail = () => {
     const { id } = useParams();  // Get the dynamic parameter (id) from the URL
@@ -16,7 +19,8 @@ const ProductDetail = () => {
     const getBookDetail = async () => {
         try {
             const response = await getAPI(`/product/${id}`);
-            setItem(response.data);
+            setItem({...response.data, imageUrl: JSON.parse(response.data.imageUrl) });
+            console.log({...response.data, imageUrl: JSON.parse(response.data.imageUrl) })
         } catch (err) {
             console.log(err)
         }
@@ -36,24 +40,24 @@ const ProductDetail = () => {
         <div className="min-h-screen flex flex-col w-full">
             <main className="p-6 flex gap-6 text-gray-600">
                 {/* Left Side: Image Carousel */}
-                <div className="flex flex-col items-center justify-center">
-                    <div className="bg-white p-6 shadow-lg rounded-lg flex justify-center items-center w-[60%]">
-                        <img
-                            src={item?.imageUrl}
-                            alt="Product"
-                            className="w-full h-full object-contain"
-                        />
-                    </div>
-                    {/* Thumbnail Navigation (Placeholder) */}
-                    <div className="flex justify-center items-center gap-2 mt-4">
-                        <button className="text-gray-600"><ChevronLeft /></button>
-                        <img
-                            src={item?.imageUrl}
-                            alt="Thumbnail"
-                            className="w-12 h-12 border rounded-md"
-                        />
-                        <button className="text-gray-600"><ChevronRight /></button>
-                    </div>
+                <div className="flex flex-col items-center justify-center max-w-[50%] bg-white shadow-md rounded-[16px] p-4">
+                    <Swiper
+                        cssMode={true}
+                        navigation={true}
+                        pagination={true}
+                        mousewheel={true}
+                        keyboard={true}
+                        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+                        className="text-black items-center w-full"
+                    >
+                        {item?.imageUrl?.map((url, index) => (
+                            url && <SwiperSlide>
+                                <div className="flex items-center justify-center pb-10">
+                                    <img key={index} src={url} className="max-w-96" alt={`Preview ${index}`} />
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
 
                 {/* Right Side: Product Details */}
