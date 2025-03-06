@@ -2,8 +2,8 @@ export interface ChartData<T> {
     data: T[]
 }
 
-export interface MonthData {
-    month: string,
+export interface Data {
+    date: string,
     data: number
 }
 

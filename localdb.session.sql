@@ -1,1 +1,0 @@
-update node_schema.users set username = 'admin@gmail.com' where username = 'admin'

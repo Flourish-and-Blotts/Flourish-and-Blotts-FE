@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Author, Book } from "../../models/interfaces";
-import { deleteAPI, postAPI, putAPI, useDataSWR } from "../../service/apiService";
+import { deleteAPI, useDataSWR } from "../../service/apiService";
 import Pagination from "../../components/ui/Pagination";
-import ProductModal from "../../components/modal/ProductModal";
 import Alert from "../../components/ui/Alert";
 import OrderCard from "../../components/OrderCard";
 import { Order } from "../../components/ShoppingCart";
@@ -82,7 +80,7 @@ export const OrderPage: React.FC<ProductPage> = ({ searchText }) => {
         <h2 className="text-xl font-bold">Order Management</h2>
       </div>
       <div className="w-full justify-center flex items-center ">
-        <div className="flex flex-col gap-4 w-[80%] items-end text-lg">
+        <div className="flex flex-col gap-4 w-full xl:w-[80%] items-end text-lg">
           {orders.map((product: Order, index) => (
             <OrderCard order={product} onCancelOrder={(order: Order) => setDeleteConfirm(order)}/>
           ))}

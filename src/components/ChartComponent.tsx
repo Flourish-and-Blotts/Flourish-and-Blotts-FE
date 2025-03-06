@@ -12,7 +12,7 @@ import {
   Legend,
   ChartOptions
 } from 'chart.js';
-import { ChartData, MonthData } from '../models/interfaces';
+import { ChartData, Data } from '../models/interfaces';
 import { MonthEnum } from '../models/enum';
 
 
@@ -26,17 +26,20 @@ ChartJS.register(
   Legend
 );
 
-const ChartComponent: React.FC = () => {
+interface ChartProps {
+  chartData: ChartData<Data>
+}
+
+const ChartComponent: React.FC<ChartProps> = ({chartData})  => {
 
   // [1200, 1900, 3000, 5000, 2300, 3200]
-  const fetchedData: ChartData<MonthData> = { data: [{ month: MonthEnum.January, data: 1200 }, { month: MonthEnum.February, data: 1900 }] };
 
   const data = {
-    labels: fetchedData.data.map(t => t.month),
+    labels: chartData.data.map(t => t.date),
     datasets: [
       {
         label: 'Earnings',
-        data: fetchedData.data.map(t => t.data),
+        data: chartData.data.map(t => t.data),
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         tension: 0.4, // For smooth curves
@@ -59,7 +62,7 @@ const ChartComponent: React.FC = () => {
 
   return (
     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4 dark:text-white">Earnings Overview</h2>
+      <h2 className="text-xl font-bold mb-4 dark:text-white">Daily Earnings Overview</h2>
       <Line data={data} options={options} />
     </div>
   );

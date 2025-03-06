@@ -18,11 +18,13 @@ const Cart: React.FC<CartProps> = ({ order, isNotOrderAble = false }) => {
   const [location, setLocation] = useState('');
 
   return (
-    <div className="p-6 text-black">
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div>
+    <div className="p-6 text-black w-full">
+    {cart.length === 0 ? (
+      <p>Your cart is empty.</p>
+    ) : (
+      <div>
+        {/* Add a wrapper div for responsive scrolling */}
+        <div className="overflow-x-auto">
           <table className="min-w-full table-auto border-collapse">
             <thead>
               <tr>
@@ -34,8 +36,8 @@ const Cart: React.FC<CartProps> = ({ order, isNotOrderAble = false }) => {
               </tr>
             </thead>
             <tbody>
-              {cart.map((book) => (
-                <tr key={book.id} className="hover:bg-gray-100">
+              {cart.map((book, index) => (
+                <tr key={book.id + index} className="hover:bg-gray-100">
                   <td className="px-4 py-2 border-b">{book.title}</td>
                   <td className="px-4 py-2 border-b">${book.price}</td>
                   <td className="px-4 py-2 border-b">{book.quantity}</td>
@@ -54,37 +56,48 @@ const Cart: React.FC<CartProps> = ({ order, isNotOrderAble = false }) => {
                 <td className="px-4 py-2 "></td>
                 <td className="px-4 py-2 "></td>
                 <td className="px-4 py-2 "></td>
-                <td className="px-4 py-2  font-semibold">Total:</td>
-                <td className="px-4 py-2  font-semibold">${cart.map((book) => Number(book.price * book.quantity)).reduce((acc, num) => acc + num, 0).toFixed(2)}</td>
+                <td className="px-4 py-2 font-semibold">Total:</td>
+                <td className="px-4 py-2 font-semibold">
+                  ${cart.reduce((acc, book) => acc + book.price * book.quantity, 0).toFixed(2)}
+                </td>
               </tr>
             </tbody>
           </table>
-          <button
-            onClick={clearCart}
-            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Clear Cart
-          </button>
-          <h2 className="text-2xl font-bold mt-4">Order Details</h2>
-          {!isNotOrderAble ?
-            <div>
-              <div>
-                <span>Location: </span>
-                <input className="border border-gray-300 p-1 rounded-[8px] mt-2 mb-2" value={location} onChange={(e) => setLocation(e.currentTarget.value)} />
-              </div>
-
-              <button
-                onClick={(_e) => order({ item: cart, location: location })}
-                className="mt-4 px-4 py-2 ml-2 bg-blue-700 text-white rounded hover:bg-black"
-                disabled = {cart.length === 0}
-              >
-                Order
-              </button>
-            </div>
-            : <p className="text-red-400 font-semibold mt-2">Please login to place your order!</p>}
         </div>
-      )}
-    </div>
+  
+        <button
+          onClick={clearCart}
+          className="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Clear Cart
+        </button>
+  
+        <h2 className="text-2xl font-bold mt-4">Order Details</h2>
+        {!isNotOrderAble ? (
+          <div>
+            <div>
+              <span>Location: </span>
+              <input
+                className="border border-gray-300 p-1 rounded-[8px] mt-2 mb-2"
+                value={location}
+                onChange={(e) => setLocation(e.currentTarget.value)}
+              />
+            </div>
+  
+            <button
+              onClick={() => order({ item: cart, location })}
+              className="mt-4 px-4 py-2 ml-2 bg-blue-700 text-white rounded hover:bg-black"
+              disabled={cart.length === 0}
+            >
+              Order
+            </button>
+          </div>
+        ) : (
+          <p className="text-red-400 font-semibold mt-2">Please login to place your order!</p>
+        )}
+      </div>
+    )}
+  </div>
   );
 };
 

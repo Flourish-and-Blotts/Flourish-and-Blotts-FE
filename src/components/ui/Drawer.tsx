@@ -21,7 +21,7 @@ const RightDrawer: React.FC<RightDrawerProps> = ({ children, openTrigger, setOpe
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50" />
         <Dialog.Content
-          className="fixed top-0 right-0 h-full bg-white shadow-lg p-4 transition-transform transform"
+          className="fixed top-0 right-0 h-full bg-white shadow-lg p-4 transition-transform transform z-10 overflow-auto w-full xl:w-[40%]"
           style={{ transform: open ? 'translateX(0)' : 'translateX(100%)' }}
         >
           {/* Header */}

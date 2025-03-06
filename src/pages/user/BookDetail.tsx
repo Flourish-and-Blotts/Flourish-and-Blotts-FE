@@ -38,9 +38,9 @@ const ProductDetail = () => {
 
     return (
         <div className="min-h-screen flex flex-col w-full">
-            <main className="p-6 flex gap-6 text-gray-600">
+            <main className="p-6 flex flex-wrap gap-6 text-gray-600 items-center justify-center">
                 {/* Left Side: Image Carousel */}
-                <div className="flex flex-col items-center justify-center max-w-[50%] bg-white shadow-md rounded-[16px] p-4">
+                <div className="flex flex-col items-center justify-center w-full bg-white shadow-md rounded-[16px] p-4 xl:w-[40%]">
                     <Swiper
                         cssMode={true}
                         navigation={true}
@@ -53,7 +53,7 @@ const ProductDetail = () => {
                         {item?.imageUrl?.map((url, index) => (
                             url && <SwiperSlide>
                                 <div className="flex items-center justify-center pb-10">
-                                    <img key={index} src={url} className="max-w-96" alt={`Preview ${index}`} />
+                                    <img key={index} src={url} className="w-full object-contain max-h-80 lg:max-h-96" alt={`Preview ${index}`}/>
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -61,7 +61,7 @@ const ProductDetail = () => {
                 </div>
 
                 {/* Right Side: Product Details */}
-                <div className="flex flex-col bg-white p-4 shadow-lg rounded-lg w-[40%] max-h-96">
+                <div className="flex flex-col bg-white p-4 shadow-lg rounded-lg w-full max-h-96 xl:w-[40%]">
                     {/* Back Button */}
                     <Link to='/' className="flex items-center gap-2 text-purple-600 border border-purple-600 px-4 py-2 rounded-lg mb-4">
                         <ArrowLeft />

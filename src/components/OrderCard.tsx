@@ -10,12 +10,12 @@ interface OrderCardProps {
 
 const OrderCard: React.FC<OrderCardProps> = ({ order, onCancelOrder }) => {
     return (
-        <div className="bg-white shadow-lg rounded-lg p-4 w-full x">
+        <div className="bg-white shadow-lg rounded-lg p-4 w-full">
             <div className=" border-b border-gray-300 pb-2 flex flex-row items-center gap-2">
                 <h3 className="text-lg font-semibold flex justify-start">Order #{order.id}</h3>
-                <div className="w-full flex flex-row justify-end gap-2">
+                <div className="w-full flex flex-wrap justify-end gap-2">
                     <span className="p-2 bg-yellow-400 text-black flex items-center justify-end rounded-[16px]">
-                        <CircleDollarSign /> Cash On Delivery</span>
+                        <CircleDollarSign  className="mr-2"/> Cash On Delivery</span>
                     <span className="p-2 bg-green-300 flex justify-end rounded-[100px]">Confirmed</span>
                 </div>
 
@@ -26,7 +26,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onCancelOrder }) => {
 
             <div className="space-y-4 mt-2">
                 {order.item.map((product) => (
-                    <div key={product.id} className="flex gap-4 border-b pb-2">
+                    <div key={product.id} className="flex gap-4 border-b pb-2 overflow-auto">
                         {product?.imageUrl?.length > 0 && (
                             <img
                                 src={product.imageUrl[0]}

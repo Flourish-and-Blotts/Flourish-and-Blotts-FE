@@ -4,7 +4,7 @@ import axios from "axios";
 import useSWR from "swr";
 
 const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: "/api", // Use relative API path since Nginx proxies /api to backend
     headers: {
         "Content-Type": "application/json",
     },
